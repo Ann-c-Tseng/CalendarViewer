@@ -1,0 +1,34 @@
+
+.calendarContainer {
+    width: 640px;
+    height: 480px;
+    background: rgb(255, 255, 255);
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 1px;
+    text-align: center;
+}
+
+.calendarHeader {
+    display: flex;
+}
+
+.calendarHeader h1 {
+    padding-left: 32px;
+    padding-right: 32px;
+    margin-right: 300px;
+}
+
+.arrowBack, .arrowForward {
+    background-color: rgb(253, 253, 253);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
+    border-radius: 100%;
+    border: none;
+}
+
+.weekHeader{
+    display: flex;
+    justify-content: space-evenly;
+}
