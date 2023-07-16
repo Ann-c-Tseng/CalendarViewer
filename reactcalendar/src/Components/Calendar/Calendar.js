@@ -20,6 +20,7 @@ class Calendar extends React.Component {
                 <div className="daysDisplay">
                     <div className="weekDayDiv" id="day1Div">
                         <h5>Mon</h5>
+                        <h5>A</h5> {/*Todo: insert prior month days before dayDisplay is called!*/}
                         {dayDisplay(1).map((num) => {
                             return <h5>{num}</h5>;
                         })}
