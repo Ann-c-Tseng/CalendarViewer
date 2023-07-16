@@ -141,11 +141,20 @@ function getDaysArray(monthNum, yearNum) {
     return dayPairs;
 }
 
-export function monDisplay() {
+export function dayDisplay(day) {
     var arr = getDaysArray();
-    return <>
-        <h5>hello</h5><h5>hello</h5
-    ></>;
+    var dayArr = [];
+
+    for(var i = 0; i < arr.length; i++) {
+        if(arr[i][1] === day) {
+            // console.log("the weekday: " + arr[i][1])
+            // console.log("the date: " + arr[i][0])
+            dayArr.push(arr[i][0]);
+        }
+    }
+    console.log(dayArr);
+
+    return dayArr;
 }
 
 
