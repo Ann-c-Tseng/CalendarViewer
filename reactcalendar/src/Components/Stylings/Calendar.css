@@ -1,5 +1,6 @@
 
 .calendarContainer {
+    color: rgb(32, 32, 35);
     width: 640px;
     height: 480px;
     background: rgb(255, 255, 255);
@@ -19,7 +20,7 @@
 }
 
 .arrowBack, .arrowForward {
-    background-color: rgb(253, 253, 253);
+    background-color: rgb(255, 255, 255);
     padding-top: 16px;
     padding-bottom: 16px;
     padding-right: 16px;
@@ -28,7 +29,8 @@
     border: none;
 }
 
-.weekHeader{
+.daysDisplay {
     display: flex;
+    flex-direction: row;
     justify-content: space-evenly;
 }
