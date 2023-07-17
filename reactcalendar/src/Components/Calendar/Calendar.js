@@ -21,8 +21,10 @@ class Calendar extends React.Component {
             <div className="calendarContainer">
                 <div className="calendarHeader">
                     <h1>{month} {year}</h1>
-                    <button className="arrowBack"> <ArrowBackIosNewIcon /> </button>
-                    <button className="arrowForward"> <ArrowForwardIosIcon /> </button>
+                    <div className="toggleArrows">
+                        <button className="arrowBack"> <ArrowBackIosNewIcon /> </button>
+                        <button className="arrowForward"> <ArrowForwardIosIcon /> </button>
+                    </div>
                 </div>
 
                 <div className="daysDisplay">

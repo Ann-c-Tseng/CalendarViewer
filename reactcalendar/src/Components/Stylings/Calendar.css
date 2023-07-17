@@ -2,7 +2,7 @@
 .calendarContainer {
     color: rgb(32, 32, 35);
     width: 640px;
-    height: 480px;
+    padding: 32px;
     background: rgb(255, 255, 255);
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 1px;
@@ -11,20 +11,22 @@
 
 .calendarHeader {
     display: flex;
+    justify-content: space-between;
 }
 
 .calendarHeader h1 {
     padding-left: 32px;
     padding-right: 32px;
-    margin-right: 300px;
+    /* margin-right: 300px; */
+}
+
+.toggleArrows {
+    padding: 24px;
 }
 
 .arrowBack, .arrowForward {
     background-color: rgb(255, 255, 255);
-    padding-top: 16px;
-    padding-bottom: 16px;
-    padding-right: 16px;
-    padding-left: 16px;
+    padding: 16px;
     border-radius: 100%;
     border: none;
 }
