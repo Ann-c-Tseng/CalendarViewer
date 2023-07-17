@@ -34,3 +34,7 @@
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+.priorMonthValue, .futureMonthValue {
+    color: rgb(142, 142, 142);
+}

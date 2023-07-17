@@ -38,7 +38,7 @@ function isLeapYear(year) {
     return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
 }
 
-function getMonthNum() {
+export function getMonthNum() {
     var month = theDate.getMonth();
     return month+1; //Prevent 0 being Jan and so on
 }
@@ -141,20 +141,134 @@ function getDaysArray(monthNum, yearNum) {
     return dayPairs;
 }
 
-export function dayDisplay(day) {
-    var arr = getDaysArray();
+export function dayDisplay(weekDay, month, year) {
+    var arr = getDaysArray(month, year);
     var dayArr = [];
 
     for(var i = 0; i < arr.length; i++) {
-        if(arr[i][1] === day) {
+        if(arr[i][1] === weekDay) {
             // console.log("the weekday: " + arr[i][1])
             // console.log("the date: " + arr[i][0])
             dayArr.push(arr[i][0]);
         }
     }
-    console.log(dayArr);
-
     return dayArr;
 }
 
+export function priorMonthDays(weekDay, month, year) {
+    var currentMonth = month; 
+    var currentYear = year;
+    var previousMonth = currentMonth-1;
+    var previousYear = currentYear;
+    var priorLeapYear = false;
+    var valueFill = [];
+    var previousMonthLength = 31;
 
+    //Current month is Janary
+    if(previousMonth === 0) {
+        previousYear = currentYear-1;
+        previousMonth = 12;
+    }
+
+    //Check if prior year is leap year 
+    priorLeapYear = isLeapYear(previousYear);
+
+    //If February, then consider alter previousMonthLength
+    if(previousMonth === 2 && priorLeapYear) {
+        previousMonthLength = 29;
+    } else if(previousMonth === 2) {
+        previousMonthLength = 28;
+    }
+
+    //If previous month isn't 31 days, alter previousMonthLength
+    if(previousMonth === 4 || previousMonth === 6 || previousMonth === 9 || previousMonth === 11) {
+        previousMonthLength = 30;
+    }
+
+    var arr = getDaysArray(currentMonth, currentYear);
+    var currentFirstDay = arr[0];
+    var startingWeekDay = currentFirstDay[1];
+
+    //Return empty as no need to have prior month values
+    if(startingWeekDay === 1) {
+        return [];
+    }
+
+    //If current month start on a Tuesday, then we need 
+    //1 prior month value filled, if Wednesday, then 2 prior month values filled, etc...
+    //Maximum 6 prior month values filled if current month start on a Sunday.
+    var priorValue = 6;
+    if(startingWeekDay === 2) {
+        priorValue = 1;
+    } else if(startingWeekDay === 3) {
+        priorValue = 2;
+    } else if(startingWeekDay === 4) {
+        priorValue = 3;
+    } else if(startingWeekDay === 5) {
+        priorValue = 4;
+    } else if(startingWeekDay === 6) {
+        priorValue = 5;
+    } else { //startingWeekDay == 7
+        priorValue = 6;
+    }
+
+    //Depending on prior month length and current month starting week day
+    //get corresponding prior month values array
+    var fillNum = previousMonthLength - priorValue + 1;
+    for(var i = 0; i < priorValue; i++) {
+        valueFill[i] = fillNum;
+        fillNum++;
+    }
+
+    //Select value to return to corresponding week day row
+    //E.g. weekDay = 1 (Monday), the return value at index 0
+    return valueFill[weekDay-1];
+}
+
+export function futureMonthDays(weekDay, month, year) {
+    var currentMonth = month; 
+    var currentYear = year;
+    var futureMonth = currentMonth+1;
+
+    if(futureMonth === 13) {
+        futureMonth = 1;
+    }
+
+    var arr = getDaysArray(currentMonth, currentYear);
+    var currentLastDay = arr[arr.length-1];
+    var endingWeekDay = currentLastDay[1];
+    var valueFill = [1, 2, 3, 4, 5, 6];
+
+    if(endingWeekDay === 7) {
+        return [];
+    }
+
+    if(endingWeekDay === 1) {
+        valueFill = valueFill.slice();
+    } else if(endingWeekDay === 2) {
+        valueFill = valueFill.slice(0,5);
+    } else if(endingWeekDay === 3) {
+        valueFill = valueFill.slice(0,4);
+    } else if(endingWeekDay === 4) {
+        valueFill = valueFill.slice(0,3);
+    } else if(endingWeekDay === 5) {
+        valueFill = valueFill.slice(0,2);
+    } else { //endingWeekDay === 6
+        valueFill = valueFill.slice(0,1);
+    }
+
+    //If we have 6 values to fill and we are on a Monday, don't fill Monday
+    //Similarly, if we have 5 values to fill and we are on a Mon or Tue, don't fill those, etc...
+    //valueFill.length = 6 monday = 1
+    //valueFill.length = 5 monday = 1, tuesday = 2
+
+    //Find out what the first week day to be filled, that way we can get the index of the array's
+    //return value. Starting from 0 each time in valueFill array when filling.
+    console.log(valueFill.length);
+    var firstWeekDayFilled = 7-valueFill.length+1;
+    if(valueFill.length + weekDay > 7) {
+        return valueFill[weekDay-firstWeekDayFilled];
+    } else {
+        return [];
+    }
+}
