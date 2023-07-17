@@ -1,7 +1,7 @@
 {
   "name": "reactcalendar",
   "version": "0.1.0",
-  "homepage": "https://ann-c-tseng.github.io/CalendarViewer",
+  "homepage": "https://ann-c-tseng.github.io/CalendarViewer/reactcalendar",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
