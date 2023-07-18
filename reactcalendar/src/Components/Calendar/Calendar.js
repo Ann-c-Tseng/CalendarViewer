@@ -5,6 +5,17 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {getYear, getMonthName, getMonthNum, dayDisplay, priorMonthDays, futureMonthDays} from '../Calendar/DateFunctions.js';
 
 class Calendar extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {msg: "Hello there!"}
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick(){
+        this.setState({msg: "this is a test..."})
+    }
+
     render() {
         //Current year and month
         var year = getYear();
@@ -17,12 +28,27 @@ class Calendar extends React.Component {
         // var month = "March";
         // var monthNum = 3;
 
+        // function hello(e) {
+        //     e.preventDefault();
+        //     if(monthNum === 1) {
+        //         monthNum = 12;
+        //         year = year-1;
+        //         month = "Dec";
+        //     } else {
+        //         monthNum = monthNum - 1;
+        //         month = "test";
+        //     }
+
+        //     console.log(monthNum + " " + year + " " + month)
+        // }
+
         return (
             <div className="calendarContainer">
+                                                    <p>{this.state.msg}</p>
                 <div className="calendarHeader">
                     <h1>{month} {year}</h1>
                     <div className="toggleArrows">
-                        <button className="arrowBack"> <ArrowBackIosNewIcon /> </button>
+                        <button className="arrowBack" onClick={this.handleClick}> <ArrowBackIosNewIcon /> </button>
                         <button className="arrowForward"> <ArrowForwardIosIcon /> </button>
                     </div>
                 </div>
