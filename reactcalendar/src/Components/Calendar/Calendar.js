@@ -8,12 +8,20 @@ class Calendar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {msg: "Hello there!"}
-        this.handleClick = this.handleClick.bind(this)
+        this.state = {year: getYear(), month: getMonthName(0), monthNum: getMonthNum()};
+        this.handleBackwardClick = this.handleBackwardClick.bind(this)
     }
 
-    handleClick(){
-        this.setState({msg: "this is a test..."})
+    handleBackwardClick(){
+        if(this.state.monthNum === 1){
+            this.setState({monthNum: 12})
+            this.setState({year: this.state.year - 1})
+            this.setState({month: getMonthName(12)})
+        } else {
+            this.setState({monthNum: this.state.monthNum - 1})
+            this.setState({year: this.state.year})
+            this.setState({month: getMonthName(this.state.monthNum - 1)})
+        }
     }
 
     render() {
@@ -44,11 +52,11 @@ class Calendar extends React.Component {
 
         return (
             <div className="calendarContainer">
-                                                    <p>{this.state.msg}</p>
+                                                    <p>{this.state.month + " " + this.state.monthNum + " " + this.state.year}</p>
                 <div className="calendarHeader">
                     <h1>{month} {year}</h1>
                     <div className="toggleArrows">
-                        <button className="arrowBack" onClick={this.handleClick}> <ArrowBackIosNewIcon /> </button>
+                        <button className="arrowBack" onClick={this.handleBackwardClick}> <ArrowBackIosNewIcon /> </button>
                         <button className="arrowForward"> <ArrowForwardIosIcon /> </button>
                     </div>
                 </div>

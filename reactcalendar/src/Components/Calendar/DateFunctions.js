@@ -252,29 +252,36 @@ export function getYear() {
     return year;
 }
 
-export function getMonthName() {
-    var monthNum = getMonthNum();
-    if(monthNum === 1) {
+export function getMonthName(monthNum) {
+
+    var m = monthNum;
+
+    //current month
+    if(monthNum === 0) {
+        m = getMonthNum();
+    }
+
+    if(m === 1) {
         return "January";
-    } else if(monthNum === 2) {
+    } else if(m === 2) {
         return "February";
-    } else if(monthNum === 3) {
+    } else if(m === 3) {
         return "March";
-    } else if(monthNum === 4) {
+    } else if(m === 4) {
         return "April";
-    } else if(monthNum === 5) {
+    } else if(m === 5) {
         return "May";
-    } else if(monthNum === 6) {
+    } else if(m === 6) {
         return "June";
-    } else if(monthNum === 7) {
+    } else if(m === 7) {
         return "July";
-    } else if(monthNum === 8) {
+    } else if(m === 8) {
         return "August";
-    } else if(monthNum === 9) {
+    } else if(m === 9) {
         return "September";
-    } else if(monthNum === 10) {
+    } else if(m === 10) {
         return "October";
-    } else if(monthNum === 11) {
+    } else if(m === 11) {
         return "November";
     }else {
         return "December";
