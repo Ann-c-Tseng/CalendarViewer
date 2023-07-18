@@ -6,10 +6,11 @@ import {getYear, getMonthName, getMonthNum, dayDisplay, priorMonthDays, futureMo
 
 class Calendar extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
 
-        this.state = {year: getYear(), month: getMonthName(0), monthNum: getMonthNum()};
+        this.state = {year: getYear(), month: getMonthName(0), monthNum: getMonthNum()}
         this.handleBackwardClick = this.handleBackwardClick.bind(this)
+        this.handleForwardClick = this.handleForwardClick.bind(this)
     }
 
     handleBackwardClick(){
@@ -24,99 +25,85 @@ class Calendar extends React.Component {
         }
     }
 
+    handleForwardClick(){
+        if(this.state.monthNum === 12) {
+            this.setState({monthNum: 1})
+            this.setState({year: this.state.year + 1})
+            this.setState({month: getMonthName(1)})
+        } else {
+            this.setState({monthNum: this.state.monthNum + 1})
+            this.setState({year: this.state.year})
+            this.setState({month: getMonthName(this.state.monthNum + 1)})
+        }
+    }
+
     render() {
-        //Current year and month
-        var year = getYear();
-        var month = getMonthName();
-        var monthNum = getMonthNum();
-
-        //Testing edge case:
-        // Given 2024 is a leap year, and March 2024 having the 31st end on a Sunday -> Test displayed correctly!
-        // var year = 2024;
-        // var month = "March";
-        // var monthNum = 3;
-
-        // function hello(e) {
-        //     e.preventDefault();
-        //     if(monthNum === 1) {
-        //         monthNum = 12;
-        //         year = year-1;
-        //         month = "Dec";
-        //     } else {
-        //         monthNum = monthNum - 1;
-        //         month = "test";
-        //     }
-
-        //     console.log(monthNum + " " + year + " " + month)
-        // }
-
         return (
             <div className="calendarContainer">
-                                                    <p>{this.state.month + " " + this.state.monthNum + " " + this.state.year}</p>
                 <div className="calendarHeader">
-                    <h1>{month} {year}</h1>
+                    <h1>{this.state.month} {this.state.year}</h1>
                     <div className="toggleArrows">
                         <button className="arrowBack" onClick={this.handleBackwardClick}> <ArrowBackIosNewIcon /> </button>
-                        <button className="arrowForward"> <ArrowForwardIosIcon /> </button>
+                        <button className="arrowForward" onClick={this.handleForwardClick}> <ArrowForwardIosIcon /> </button>
                     </div>
                 </div>
 
                 <div className="daysDisplay">
                     <div className="weekDayDiv" id="day1Div">
                         <h5>Mon</h5>
-                        {priorMonthDays(1, monthNum, year)}
-                        {dayDisplay(1, monthNum, year).map((num) => {
+                        {priorMonthDays(1, this.state.monthNum, this.state.year)}
+                        {dayDisplay(1, this.state.monthNum, this.state.year).map((num) => {
                             return <button className="currentMonthValue"><h5>{num}</h5></button>;
                         })}
-                        {futureMonthDays(1, monthNum, year)}
+                        {futureMonthDays(1, this.state.monthNum, this.state.year)}
                     </div>
                     <div className="weekDayDiv" id="day2Div">
                         <h5>Tue</h5>
-                        {priorMonthDays(2, monthNum, year)}
-                        {dayDisplay(2, monthNum, year).map((num) => {
+                        {priorMonthDays(2, this.state.monthNum, this.state.year)}
+                        {dayDisplay(2, this.state.monthNum, this.state.year).map((num) => {
                             return <button className="currentMonthValue"><h5>{num}</h5></button>;
                         })}
-                        {futureMonthDays(2, monthNum, year)}
+                        {futureMonthDays(2, this.state.monthNum, this.state.year)}
                     </div>
                     <div className="weekDayDiv" id="day3Div">
                         <h5>Wed</h5>
-                        {priorMonthDays(3, monthNum, year)}
-                        {dayDisplay(3, monthNum, year).map((num) => {
+                        {priorMonthDays(3, this.state.monthNum, this.state.year)}
+                        {dayDisplay(3, this.state.monthNum, this.state.year).map((num) => {
                             return <button className="currentMonthValue"><h5>{num}</h5></button>;
                         })}
-                        {futureMonthDays(3, monthNum, year)}
+                        {futureMonthDays(3, this.state.monthNum, this.state.year)}
                     </div>
                     <div className="weekDayDiv" id="day4Div">
                         <h5>Thu</h5>
-                        {priorMonthDays(4, monthNum, year)}
-                        {dayDisplay(4, monthNum, year).map((num) => {
+                        {priorMonthDays(4, this.state.monthNum, this.state.year)}
+                        {dayDisplay(4, this.state.monthNum, this.state.year).map((num) => {
                             return <button className="currentMonthValue"><h5>{num}</h5></button>;
                         })}
-                        {futureMonthDays(4, monthNum, year)}
+                        {futureMonthDays(4, this.state.monthNum, this.state.year)}
                     </div>
                     <div className="weekDayDiv" id="day5Div">
                         <h5>Fri</h5>
-                        {priorMonthDays(5, monthNum, year)}
-                        {dayDisplay(5, monthNum, year).map((num) => {
+                        {priorMonthDays(5, this.state.monthNum, this.state.year)}
+                        {dayDisplay(5, this.state.monthNum, this.state.year).map((num) => {
                             return <button className="currentMonthValue"><h5>{num}</h5></button>;
                         })}
-                        {futureMonthDays(5, monthNum, year)}
+                        {futureMonthDays(5, this.state.monthNum, this.state.year)}
                     </div>
                     <div className="weekDayDiv" id="day6Div">
                         <h5>Sat</h5>
-                        {priorMonthDays(6, monthNum, year)}
-                        {dayDisplay(6, monthNum, year).map((num) => {
+                        {priorMonthDays(6, this.state.monthNum, this.state.year)}
+                        {dayDisplay(6, this.state.monthNum, this.state.year).map((num) => {
                             return <button className="currentMonthValue"><h5>{num}</h5></button>;
                         })}
-                        {futureMonthDays(6, monthNum, year)}
+                        {futureMonthDays(6, this.state.monthNum, this.state.year)}
                     </div>
                     <div className="weekDayDiv" id="day7Div">
                         <h5>Sun</h5>
-                        {priorMonthDays(7, monthNum, year)}
-                        {dayDisplay(7, monthNum, year).map((num) => {
+                        {priorMonthDays(7, this.state.monthNum, this.state.year)}
+                        {dayDisplay(7, this.state.monthNum, this.state.year).map((num) => {
                             return <button className="currentMonthValue"><h5>{num}</h5></button>;
                         })}
-                        {futureMonthDays(7, monthNum, year)}
+                        {futureMonthDays(7, this.state.monthNum, this.state.year)}
                     </div>
                 </div>
             </div>
