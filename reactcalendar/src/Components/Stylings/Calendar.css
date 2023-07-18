@@ -37,6 +37,22 @@
     justify-content: space-evenly;
 }
 
+.weekDayDiv {
+    display: flex;
+    flex-direction: column;
+}
+
 .priorMonthValue, .futureMonthValue {
     color: rgb(142, 142, 142);
+}
+
+.currentMonthValue {
+    background-color: transparent;
+    border-width: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    padding: 0;    
 }

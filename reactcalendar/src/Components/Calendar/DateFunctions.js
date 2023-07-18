@@ -1,52 +1,7 @@
 const theDate = new Date();
 
-export function getYear() {
-    var year = theDate.getFullYear();
-    return year;
-}
-
-export function getMonth() {
-    var monthNum = getMonthNum();
-    if(monthNum === 1) {
-        return "January";
-    } else if(monthNum === 2) {
-        return "February";
-    } else if(monthNum === 3) {
-        return "March";
-    } else if(monthNum === 4) {
-        return "April";
-    } else if(monthNum === 5) {
-        return "May";
-    } else if(monthNum === 6) {
-        return "June";
-    } else if(monthNum === 7) {
-        return "July";
-    } else if(monthNum === 8) {
-        return "August";
-    } else if(monthNum === 9) {
-        return "September";
-    } else if(monthNum === 10) {
-        return "October";
-    } else if(monthNum === 11) {
-        return "November";
-    }else {
-        return "December";
-    }
-}
-
 function isLeapYear(year) {
     return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
-}
-
-export function getMonthNum() {
-    var month = theDate.getMonth();
-    return month+1; //Prevent 0 being Jan and so on
-}
-
-export function getDay() {
-    var day = theDate.getDate();
-    var weekDay = theDate.toString().slice(0,3);
-    return [day, weekDay];
 }
 
 function findPairs(month, weekDayInt, year) {
@@ -141,21 +96,7 @@ function getDaysArray(monthNum, yearNum) {
     return dayPairs;
 }
 
-export function dayDisplay(weekDay, month, year) {
-    var arr = getDaysArray(month, year);
-    var dayArr = [];
-
-    for(var i = 0; i < arr.length; i++) {
-        if(arr[i][1] === weekDay) {
-            // console.log("the weekday: " + arr[i][1])
-            // console.log("the date: " + arr[i][0])
-            dayArr.push(arr[i][0]);
-        }
-    }
-    return dayArr;
-}
-
-export function priorMonthDays(weekDay, month, year) {
+function priorMonthDaysHelper(weekDay, month, year) {
     var currentMonth = month; 
     var currentYear = year;
     var previousMonth = currentMonth-1;
@@ -225,7 +166,7 @@ export function priorMonthDays(weekDay, month, year) {
     return valueFill[weekDay-1];
 }
 
-export function futureMonthDays(weekDay, month, year) {
+function futureMonthDaysHelper(weekDay, month, year) {
     var currentMonth = month; 
     var currentYear = year;
     var futureMonth = currentMonth+1;
@@ -240,7 +181,7 @@ export function futureMonthDays(weekDay, month, year) {
     var valueFill = [1, 2, 3, 4, 5, 6];
 
     if(endingWeekDay === 7) {
-        return [];
+        return "";
     }
 
     if(endingWeekDay === 1) {
@@ -264,11 +205,83 @@ export function futureMonthDays(weekDay, month, year) {
 
     //Find out what the first week day to be filled, that way we can get the index of the array's
     //return value. Starting from 0 each time in valueFill array when filling.
-    console.log(valueFill.length);
     var firstWeekDayFilled = 7-valueFill.length+1;
     if(valueFill.length + weekDay > 7) {
         return valueFill[weekDay-firstWeekDayFilled];
     } else {
-        return [];
+        return "";
     }
+}
+
+export function dayDisplay(weekDay, month, year) {
+    var arr = getDaysArray(month, year);
+    var dayArr = [];
+
+    for(var i = 0; i < arr.length; i++) {
+        if(arr[i][1] === weekDay) {
+            // console.log("the weekday: " + arr[i][1])
+            // console.log("the date: " + arr[i][0])
+            dayArr.push(arr[i][0]);
+        }
+    }
+    return dayArr;
+}
+
+export function futureMonthDays(weekDay, month, year) {
+    var dayVal = futureMonthDaysHelper(weekDay, month, year);
+    if(dayVal !== "") {
+        return(
+            <h5 className="futureMonthValue">{dayVal}</h5>
+        )
+    }
+    return "";
+}
+
+export function priorMonthDays(weekDay, month, year) {
+    var dayVal = priorMonthDaysHelper(weekDay, month, year);
+    if(dayVal !== undefined) {
+        return(
+            <h5 className="priorMonthValue">{dayVal}</h5>
+        )
+    }
+    return "";
+}
+
+export function getYear() {
+    var year = theDate.getFullYear();
+    return year;
+}
+
+export function getMonthName() {
+    var monthNum = getMonthNum();
+    if(monthNum === 1) {
+        return "January";
+    } else if(monthNum === 2) {
+        return "February";
+    } else if(monthNum === 3) {
+        return "March";
+    } else if(monthNum === 4) {
+        return "April";
+    } else if(monthNum === 5) {
+        return "May";
+    } else if(monthNum === 6) {
+        return "June";
+    } else if(monthNum === 7) {
+        return "July";
+    } else if(monthNum === 8) {
+        return "August";
+    } else if(monthNum === 9) {
+        return "September";
+    } else if(monthNum === 10) {
+        return "October";
+    } else if(monthNum === 11) {
+        return "November";
+    }else {
+        return "December";
+    }
+}
+
+export function getMonthNum() {
+    var month = theDate.getMonth();
+    return month+1; //Allow January to be "1", instead of "0"
 }
