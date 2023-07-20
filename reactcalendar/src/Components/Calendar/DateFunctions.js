@@ -132,7 +132,7 @@ function priorMonthDaysHelper(weekDay, month, year) {
 
     //Return empty as no need to have prior month values
     if(startingWeekDay === 1) {
-        return [];
+        return 0;
     }
 
     //If current month start on a Tuesday, then we need 
@@ -164,6 +164,16 @@ function priorMonthDaysHelper(weekDay, month, year) {
     //Select value to return to corresponding week day row
     //E.g. weekDay = 1 (Monday), the return value at index 0
     return valueFill[weekDay-1];
+}
+
+export function priorMonthDays(weekDay, month, year) {
+    var dayVal = priorMonthDaysHelper(weekDay, month, year);
+    if(dayVal > 0 && dayVal <= 31) {
+        return(
+            <h5 className="priorMonthValue">{dayVal}</h5>
+        )
+    }
+    return "";
 }
 
 function futureMonthDaysHelper(weekDay, month, year) {
@@ -232,16 +242,6 @@ export function futureMonthDays(weekDay, month, year) {
     if(dayVal !== "") {
         return(
             <h5 className="futureMonthValue">{dayVal}</h5>
-        )
-    }
-    return "";
-}
-
-export function priorMonthDays(weekDay, month, year) {
-    var dayVal = priorMonthDaysHelper(weekDay, month, year);
-    if(dayVal !== undefined) {
-        return(
-            <h5 className="priorMonthValue">{dayVal}</h5>
         )
     }
     return "";

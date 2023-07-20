@@ -9,6 +9,7 @@ class Calendar extends React.Component {
         super(props)
 
         this.state = {year: getYear(), month: getMonthName(0), monthNum: getMonthNum()}
+        // this.state = {year: 2024, month: "Jan", monthNum: 1}
         this.handleBackwardClick = this.handleBackwardClick.bind(this)
         this.handleForwardClick = this.handleForwardClick.bind(this)
     }
