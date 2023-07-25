@@ -10,47 +10,57 @@
     background-color: white;
 }
 
-.calendarHeader {
+.weekHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.calendarHeader h1 {
-    padding-left: 24px;
-    padding-right: 24px;
-    margin-left: 24px;
-}
-
-.toggleArrows {
     padding: 24px;
 }
 
-.arrowBack, .arrowForward {
+
+
+/* .calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+/* .calendarHeader h1 {
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-left: 24px;
+} */
+
+/* .toggleArrows {
+    padding: 24px;
+} */
+
+/* .arrowBack, .arrowForward {
     background-color: white;
     padding: 16px;
     border-radius: 100%;
     border: none;
     margin: 8px;
-}
+} */
 
-.daysDisplay {
+/* .dayDisplay {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-}
+    justify-items: center;
+} */
 
-.weekDayDiv {
+/* .weekDayDiv {
     display: flex;
     flex-direction: column;
-}
+} */
 
-.priorMonthValue, .futureMonthValue {
+/* .priorMonthValue, .futureMonthValue {
     color: rgb(142, 142, 142);
     margin: 16px;
-}
+} */
 
-.currentMonthValue {
+/* .currentMonthValue {
     background-color: transparent;
     border-width: 0;
     font-family: inherit;
@@ -59,43 +69,42 @@
     font-weight: inherit;
     line-height: inherit;
     padding: 0;  
-}
+} */
 
-.currentMonthValue h5 {
+/* .currentMonthValue h5 {
     margin: 16px;
-}
+} */
 
-.currentMonthValue:hover {
+/* .currentMonthValue:hover {
     transition-duration: 0.03s;
-    /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 1px; */
     border-radius: 5px;
-}
+} */
 
-.currentMonthValue:hover h5 {
+/* .currentMonthValue:hover h5 {
     color: rgb(168, 180, 239);
-}
+} */
 
-.currentMonthValue:active h5 {
+/* .currentMonthValue:active h5 {
     color: rgb(255, 255, 255);
-}
+} */
 
-.currentMonthValue:active {
+/* .currentMonthValue:active {
     transition-duration: 0.03s;
     background-color: rgb(168, 180, 239);
     border-radius: 5px;
-}
+} */
 
-.currentMonthValue:hover, .arrowBack:hover, .arrowForward:hover {
+/* .currentMonthValue:hover, .arrowBack:hover, .arrowForward:hover {
     cursor: pointer;
-}
+} */
 
-.arrowBack:hover, .arrowForward:hover {
+/* .arrowBack:hover, .arrowForward:hover {
     transition-duration: 0.03s;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 1px;
-}
+} */
 
-.arrowBack:active, .arrowForward:active {
+/* .arrowBack:active, .arrowForward:active {
     transition-duration: 0.03s;
     background-color: rgb(168, 180, 239);
-}
+} */
 
