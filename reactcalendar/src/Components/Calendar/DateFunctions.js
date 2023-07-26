@@ -8,7 +8,6 @@ function findPairs(month, weekDayInt, year) {
     var pairArray = [];
     var pairIndex = 0;
     var currentWeekDay = weekDayInt;
-    // console.log("weekDayInt: " + weekDayInt);
     var monthLength = 0;
 
     if(month === 2 && isLeapYear(year)) { //If February and leap year, has 29 days
@@ -24,7 +23,7 @@ function findPairs(month, weekDayInt, year) {
             monthLength = 30;
         }
     }
-    // console.log(monthLength);
+
     var weekNum = 1;
     for(var i = 1; i <= monthLength; i++) {
         if(currentWeekDay > 7) {
@@ -32,21 +31,22 @@ function findPairs(month, weekDayInt, year) {
             weekNum++;
         }
         var date = new Date(year, month-1, i);
-        var pair = [i, currentWeekDay, weekNum, date];
+        var pair = {"day": i, "weekDay": currentWeekDay, "weekNum": weekNum, "month": month, "year": year, "date": date};
         pairArray[pairIndex] = pair;
         pairIndex++;
         currentWeekDay++;
     }
 
-    var totalWeeks = pairArray[pairArray.length-1][2];
+    // console.log(pairArray);
     
     //day organized by: [day, weekday (mon 1-sun 7), weekCount (1-5 or 6), date]
     var finalArr = {};
     pairArray.forEach(v => {
-        if(!!finalArr[v[2]]) {
-            finalArr[v[2]].push(v);
+        // console.log(v['weekNum'])
+        if(!!finalArr[v['weekNum']]) {
+            finalArr[v['weekNum']].push(v);
         } else {
-            finalArr[v[2]] = [v];
+            finalArr[v['weekNum']] = [v];
         }
     })
 
@@ -103,13 +103,9 @@ export function generateWeekDivs(monthNum, yearNum) {
     var weekDivs = [];
     //arr subarray organized by: [day, weekday (mon 1-sun 7), weekCount (1-5 or 6), date]
     var arr = getDaysArray(monthNum, yearNum);
-    var weeks = Object.keys(arr).length;
+    var weeks = Object.keys(Object.keys(arr).length).length;
 
     console.log(arr);
-
-    // arr.forEach(week => {
-    //     console.log(week);
-    // })
 
     for(var j = 1; j <= weeks; j++) {
         weekDivs[j] = <div className="weekDivs" id={""}>{j}</div>;
