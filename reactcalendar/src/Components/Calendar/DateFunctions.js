@@ -99,16 +99,96 @@ export function getDay() {
     return theDate.getDay();
 }
 
+function firstWeekFill(month, year) {
+    var currentMonth = month; 
+    var currentYear = year;
+    var previousMonth = currentMonth-1;
+    var previousYear = currentYear;
+    var priorLeapYear = false;
+    var valueFill = [];
+    var previousMonthLength = 31;
+
+    //Current month is Janary
+    if(previousMonth === 0) {
+        previousYear = currentYear-1;
+        previousMonth = 12;
+    }
+
+    //Check if prior year is leap year 
+    priorLeapYear = isLeapYear(previousYear);
+
+    //If February, then consider alter previousMonthLength
+    if(previousMonth === 2 && priorLeapYear) {
+        previousMonthLength = 29;
+    } else if(previousMonth === 2) {
+        previousMonthLength = 28;
+    }
+
+    //If previous month isn't 31 days, alter previousMonthLength
+    if(previousMonth === 4 || previousMonth === 6 || previousMonth === 9 || previousMonth === 11) {
+        previousMonthLength = 30;
+    }
+
+    var pmArr = [];
+    var idx = 6;
+    for(var i = 0; i < 7; i++) {
+        pmArr[i] = previousMonthLength - idx;
+        idx--;
+    }
+    
+    return pmArr;
+}
+
+function singleWeekDisplay(wArr, weekNum, totalWeeks, fwFill) {
+    var aLength = Object.keys(wArr).length;
+    var dayDivs = [];
+
+    if(weekNum !== 1 && weekNum !== totalWeeks) {
+        for(var i = 0; i < aLength; i++) {
+            var day = wArr[i]['day'];
+            dayDivs[i] = <button className="dayBtn"><h5>{day}</h5></button>;
+        }
+    } else if(weekNum === 1) {
+        var filler = 7 - aLength;
+        
+        for(var i = 0; i < 7; i++) {
+            if(i < filler) {
+                dayDivs[i] = <h5 className="fillerH5">{fwFill[i+aLength]}</h5>
+            } else {
+                var day = wArr[i-filler]['day'];
+                dayDivs[i] = <button className="dayBtn"><h5 className="dayH5">{day}</h5></button>;
+            }
+        }
+    } else {
+        var lwFill = [1, 2, 3, 4, 5, 6, 7];
+        var idx = 0;
+        for(var i = 0; i < 7; i++) {
+            if(i < aLength) {
+                var day = wArr[i]['day'];
+                dayDivs[i] = <button className="dayBtn"><h5 className="dayH5">{day}</h5></button>;
+            } else {
+                dayDivs[i] = <h5 className="fillerH5">{lwFill[idx]}</h5>
+                idx++;
+            }
+        }
+    }
+
+    return(
+        dayDivs
+    )
+}
+
 export function generateWeekDivs(monthNum, yearNum) {
     var weekDivs = [];
     //arr subarray organized by: [day, weekday (mon 1-sun 7), weekCount (1-5 or 6), date]
     var arr = getDaysArray(monthNum, yearNum);
-    var weeks = Object.keys(Object.keys(arr).length).length;
+    var weeks = Object.keys(arr).length;
 
-    console.log(arr);
+    var fwFill = firstWeekFill(monthNum, yearNum);
 
     for(var j = 1; j <= weeks; j++) {
-        weekDivs[j] = <div className="weekDivs" id={""}>{j}</div>;
+        var days = arr[j];
+        weekDivs[j] = <div className="weekDivs" id={""}>{singleWeekDisplay(arr[j], j, weeks, fwFill)}</div>;
     }
     
     return(
