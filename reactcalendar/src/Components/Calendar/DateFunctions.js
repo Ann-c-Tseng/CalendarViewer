@@ -37,7 +37,20 @@ function findPairs(month, weekDayInt, year) {
         pairIndex++;
         currentWeekDay++;
     }
-    return pairArray;
+
+    var totalWeeks = pairArray[pairArray.length-1][2];
+    
+    //day organized by: [day, weekday (mon 1-sun 7), weekCount (1-5 or 6), date]
+    var finalArr = {};
+    pairArray.forEach(v => {
+        if(!!finalArr[v[2]]) {
+            finalArr[v[2]].push(v);
+        } else {
+            finalArr[v[2]] = [v];
+        }
+    })
+
+    return finalArr;
 }
 
 export function getYear() {
@@ -88,28 +101,15 @@ export function getDay() {
 
 export function generateWeekDivs(monthNum, yearNum) {
     var weekDivs = [];
-
-    var weeklyContainer = [];
-    var wcIdx = 0;
-
     //arr subarray organized by: [day, weekday (mon 1-sun 7), weekCount (1-5 or 6), date]
     var arr = getDaysArray(monthNum, yearNum);
-    var weeks = arr[arr.length-1][2];
+    var weeks = Object.keys(arr).length;
 
-    var weekCount = 1;
+    console.log(arr);
 
-    for(var i = 0; i < arr.length; i++) { //go through every single day, categorize by storing into week arrays corresponding with weekCount
-        if(weekCount === arr[i][2]) {
-            weeklyContainer[wcIdx] = arr[i];
-            wcIdx++;
-        } else {
-            weekCount++;
-            i--;
-            wcIdx = 0;
-            console.log(weeklyContainer);
-            weeklyContainer = [];  
-        }
-    }
+    // arr.forEach(week => {
+    //     console.log(week);
+    // })
 
     for(var j = 1; j <= weeks; j++) {
         weekDivs[j] = <div className="weekDivs" id={""}>{j}</div>;
