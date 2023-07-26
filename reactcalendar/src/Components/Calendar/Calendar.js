@@ -2,7 +2,7 @@ import React from 'react';
 import '../Stylings/Calendar.css';
 // import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import {getYear, getMonthName, getMonthNum, getDay, generateWeekDivs, getDaysArray, countWeekRows} from '../Calendar/DateFunctions.js';
+import {getYear, getMonthName, getMonthNum, getDay, generateWeekDivs, generateMonths, generateYears} from '../Calendar/DateFunctions.js';
 // import {EventForm} from '../EventForm/EventForm';
 
 class Calendar extends React.Component {
@@ -40,7 +40,16 @@ class Calendar extends React.Component {
     render() {
         return (
             <div className='calendarContainer'>
-                <div className="titleToggle"> <h2>{this.state.currentMonthName} {this.state.currentYear}</h2></div>
+                {/* <div className="titleToggle"> <h2>{this.state.currentMonthName} {this.state.currentYear}</h2></div> */}
+                <div className="titleToggle"> 
+                    <select>
+                        {generateMonths(this.state.currentMonthName, this.state.currentMonthNum)}
+                    </select>
+                    <select>
+                        {generateYears(this.state.currentYear)}
+                    </select>
+                </div>
+
                 <div className='weekHeader'>
                     <h5>Mon</h5><h5>Tue</h5><h5>Wed</h5><h5>Thu</h5><h5>Fri</h5><h5>Sat</h5><h5>Sun</h5>
                 </div>

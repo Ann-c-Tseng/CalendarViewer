@@ -105,7 +105,6 @@ function firstWeekFill(month, year) {
     var previousMonth = currentMonth-1;
     var previousYear = currentYear;
     var priorLeapYear = false;
-    var valueFill = [];
     var previousMonthLength = 31;
 
     //Current month is Janary
@@ -151,23 +150,23 @@ function singleWeekDisplay(wArr, weekNum, totalWeeks, fwFill) {
     } else if(weekNum === 1) {
         var filler = 7 - aLength;
         
-        for(var i = 0; i < 7; i++) {
-            if(i < filler) {
-                dayDivs[i] = <h5 className="fillerH5">{fwFill[i+aLength]}</h5>
+        for(var j = 0; j < 7; j++) {
+            if(j < filler) {
+                dayDivs[j] = <h5 className="fillerH5">{fwFill[j+aLength]}</h5>
             } else {
-                var day = wArr[i-filler]['day'];
-                dayDivs[i] = <button className="dayBtn"><h5 className="dayH5">{day}</h5></button>;
+                var day2 = wArr[j-filler]['day'];
+                dayDivs[j] = <button className="dayBtn"><h5 className="dayH5">{day2}</h5></button>;
             }
         }
     } else {
         var lwFill = [1, 2, 3, 4, 5, 6, 7];
         var idx = 0;
-        for(var i = 0; i < 7; i++) {
-            if(i < aLength) {
-                var day = wArr[i]['day'];
-                dayDivs[i] = <button className="dayBtn"><h5 className="dayH5">{day}</h5></button>;
+        for(var k = 0; k < 7; k++) {
+            if(k < aLength) {
+                var day3 = wArr[k]['day'];
+                dayDivs[k] = <button className="dayBtn"><h5 className="dayH5">{day3}</h5></button>;
             } else {
-                dayDivs[i] = <h5 className="fillerH5">{lwFill[idx]}</h5>
+                dayDivs[k] = <h5 className="fillerH5">{lwFill[idx]}</h5>
                 idx++;
             }
         }
@@ -187,12 +186,42 @@ export function generateWeekDivs(monthNum, yearNum) {
     var fwFill = firstWeekFill(monthNum, yearNum);
 
     for(var j = 1; j <= weeks; j++) {
-        var days = arr[j];
         weekDivs[j] = <div className="weekDivs" id={""}>{singleWeekDisplay(arr[j], j, weeks, fwFill)}</div>;
     }
     
     return(
         weekDivs
+    )
+}
+
+export function generateMonths(month, monthNum) {
+    var optionsArr = [];
+
+    for(var i = 0; i < 12; i++) {
+        if(i+1 !== monthNum) {
+            optionsArr[i] = <option> {getMonthName(i+1)} </option>;
+        } else {
+            optionsArr[i] = <option selected> {getMonthName(i+1)} </option>;
+        }
+    }
+
+    return(
+        optionsArr
+    )
+}
+
+export function generateYears(year) {
+    var optionsArr = [];
+
+    for(var i = 0; i < 20; i++) {
+        if(i !== 0) {
+            optionsArr[i] = <option> {year + i} </option>;
+        } else {
+            optionsArr[i] = <option selected> {year} </option>;
+        }
+    }
+    return(
+       optionsArr
     )
 }
 
