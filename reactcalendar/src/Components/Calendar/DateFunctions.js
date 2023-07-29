@@ -198,11 +198,7 @@ export function generateMonths(month, monthNum) {
     var optionsArr = [];
 
     for(var i = 0; i < 12; i++) {
-        if(i+1 !== monthNum) {
-            optionsArr[i] = <option> {getMonthName(i+1)} </option>;
-        } else {
-            optionsArr[i] = <option selected> {getMonthName(i+1)} </option>;
-        }
+        optionsArr[i] = <option> {getMonthName(i+1)} </option>;
     }
 
     return(
