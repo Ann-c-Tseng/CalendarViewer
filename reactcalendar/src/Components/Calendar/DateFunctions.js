@@ -1,4 +1,5 @@
 const theDate = new Date();
+theDate.setHours(0,0,0,0);
 
 function isLeapYear(year) {
     return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
@@ -31,13 +32,13 @@ function findPairs(month, weekDayInt, year) {
             weekNum++;
         }
         var date = new Date(year, month-1, i);
-        var pair = {"day": i, "weekDay": currentWeekDay, "weekNum": weekNum, "month": month, "year": year, "date": date};
+
+        // console.log(date + " theDate: " + theDate);
+        var pair = {"day": i, "weekDay": currentWeekDay, "weekNum": weekNum, "month": month, "year": year, "date": date, "isToday": date.valueOf() === theDate.valueOf()};
         pairArray[pairIndex] = pair;
         pairIndex++;
         currentWeekDay++;
     }
-
-    // console.log(pairArray);
     
     //day organized by: [day, weekday (mon 1-sun 7), weekCount (1-5 or 6), date]
     var finalArr = {};
@@ -142,10 +143,13 @@ function singleWeekDisplay(wArr, weekNum, totalWeeks, fwFill) {
     var aLength = Object.keys(wArr).length;
     var dayDivs = [];
 
+    console.log(wArr);
+
     if(weekNum !== 1 && weekNum !== totalWeeks) {
         for(var i = 0; i < aLength; i++) {
             var day = wArr[i]['day'];
-            dayDivs[i] = <button className="dayBtn"><h5>{day}</h5></button>;
+            var isToday = wArr[i]['isToday'];
+            dayDivs[i] = <button className="dayBtn"><h5 data-isToday={isToday}>{day}</h5></button>;
         }
     } else if(weekNum === 1) {
         var filler = 7 - aLength;
@@ -155,7 +159,8 @@ function singleWeekDisplay(wArr, weekNum, totalWeeks, fwFill) {
                 dayDivs[j] = <h5 className="fillerH5">{fwFill[j+aLength]}</h5>
             } else {
                 var day2 = wArr[j-filler]['day'];
-                dayDivs[j] = <button className="dayBtn"><h5 className="dayH5">{day2}</h5></button>;
+                var isToday2 = wArr[j-filler]['isToday'];
+                dayDivs[j] = <button className="dayBtn"><h5 className="dayH5" data-isToday={isToday2}>{day2}</h5></button>;
             }
         }
     } else {
@@ -164,7 +169,8 @@ function singleWeekDisplay(wArr, weekNum, totalWeeks, fwFill) {
         for(var k = 0; k < 7; k++) {
             if(k < aLength) {
                 var day3 = wArr[k]['day'];
-                dayDivs[k] = <button className="dayBtn"><h5 className="dayH5">{day3}</h5></button>;
+                var isToday3 = wArr[k]['isToday'];
+                dayDivs[k] = <button className="dayBtn"><h5 className="dayH5" data-isToday={isToday3}>{day3}</h5></button>;
             } else {
                 dayDivs[k] = <h5 className="fillerH5">{lwFill[idx]}</h5>
                 idx++;
