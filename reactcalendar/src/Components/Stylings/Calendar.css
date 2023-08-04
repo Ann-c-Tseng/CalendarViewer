@@ -70,7 +70,7 @@ h5 {
 h5[data-isToday="true"] {
     background-color: #a2bde8;
     color: white;
-    border-radius: 5px;
+    border-radius: 100%;
     font-weight: 900;
     padding: 4px;
 }
